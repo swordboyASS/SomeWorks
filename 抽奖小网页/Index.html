@@ -1,0 +1,187 @@
+<!-- 要引用文件就要用vs-code的打开文件夹，一起打开他们 -->
+<!-- 点击事件-问题，按钮点击多次，造成有多个定时器的问题。 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IT培优抽奖</title>
+    <style>
+        #cat {
+            position: fixed;
+            /* left: 90%;
+            top: 80%; */
+            bottom: 0;
+            right: 0;
+        }
+        
+
+        input {
+            background-color:#002699;
+            position: absolute;
+            /* top: 80px;
+            left: 0px; */
+            width: 120px;
+            color: white;
+            box-shadow: -1px-2px-2px 0#615959;
+            border-radius: 25px;
+            font-size: 23px;
+
+        }
+
+        img {
+            width: 100px;
+            height: 120px;
+        }
+        #QQ {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 500px;
+        }
+
+        #div1 {
+            position: absolute;
+            top: 316px;
+            left: 385px;
+        }
+
+        #btn2 {
+            margin-left: 198px;
+        }
+
+        #btn1 {
+            margin-left: -26px;
+        }
+
+
+        #div2 {
+            position: absolute;
+            top: 307px;
+            left: 34%;
+            margin: auto;
+            border-radius: 5px;
+            box-shadow: inset 0px 0px 50px 10px rgba(255, 255, 255, 0.2);
+            z-index: 500;
+        }
+        body {
+            background-image: url("Number-image/bgimg.jpg");
+            overflow: hidden;
+            background-size: cover;
+        }
+
+    </style>
+    <script>
+        window.onload = function () {
+            //音频
+            var music1 = document.getElementById("music1");
+            
+            //一个按钮盒子
+            var div1 = document.getElementById("div1");
+
+            //2个按钮
+            var btn1 = document.getElementById("btn1");
+            var btn2 = document.getElementById("btn2");
+
+            //1个盒子
+            var div2 = document.getElementById("div2");
+
+            ///
+            var left1 = div2.offsetLeft; 
+            var top1 = div2.offsetTop;
+            ///
+            div1.style.top = top1+125+"px";
+            div1.style.left = left1+80+"px";
+
+
+            //1个盒子的图片
+            var img1 = div2.getElementsByTagName("img");
+            
+            //1个定时器
+            var timer1 = null
+
+
+                //第二个数字图片
+
+                ///实验
+                var number=Math.floor(Math.random()*231+1);
+                // var number=230;
+                var one = Math.floor(number/100);  //百位
+                var three = Math.floor((number/10)%10) ; // 十位
+                var two = Math.floor(number%10);  //个位
+                // alert(number+'---'+one+'---'+two+'---'+three)
+                ///实验
+
+
+
+            //开始按钮
+            btn1.onclick = function () {
+                clearInterval(timer1);
+                number=Math.floor(Math.random()*231+1);
+                // var number=230;
+                one = Math.floor(number/100);  //百位
+                three = Math.floor((number/10)%10) ; // 十位
+                two = Math.floor(number%10);  //个位
+                music1.play();
+                timer1 = setInterval(function () {
+                    for (var i = 0; i < img1.length; i++) {
+                        img1[i].src = "Number-image/"+Math.floor(Math.random() * 10) + ".png";
+                    }
+
+                }, 30);
+                //音频
+            }
+
+
+
+
+
+            //结束按钮
+            btn2.onclick = function () {
+            clearInterval(timer1);
+            //音频
+            music1.pause();
+            music1.load();
+
+            timer1=setInterval(function(){
+                for (var i = 0; i < img1.length-3; i++) {
+                    img1[i].src = "Number-image/1.png";
+                }
+                    img1[2].src = "Number-image/"+one+".png";
+                    img1[3].src = "Number-image/"+three+".png";
+                    img1[4].src = "Number-image/"+two+".png";
+            },30)    
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1">
+        <input type="button" id="btn1" value="开始"></input>
+        <input type="button" id="btn2" value="停止"></input>
+    </div>
+    <img src="Number-image/cat.gif" id="cat" alt="猫咪">
+    <img src="Number-image/QQnumber.jpg" id="QQ" alt="群聊号码">
+    <div id="div2">
+        <img src="Number-image/0.png" alt="">
+        <img src="Number-image/0.png" alt="">
+        <img id="img1" src="Number-image/0.png" alt="">
+        <img id="img2" src="Number-image/0.png" alt="">
+        <img id="img3" src="Number-image/0.png" alt="">
+    </div>
+
+
+    <!-- 音频 -->
+        <audio perload id="music1"> 
+            <!-- perload属性代表用js操纵 -->
+        <!-- <audio controls id="music1"> 代表在网页上操控 -->
+            <source src="./music.mp3" type="audio/mpeg" id="source">
+        </audio>
+</body>
+
+</html>
